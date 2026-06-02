@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motivo de Oración</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* MODO CLARO */
+    html, body {
+      background: #ffffff;
+      font-family: 'Nunito', system-ui, sans-serif;
+      padding: 0.75rem;
+      margin: 0;
+    }
+    .widget {
+      background: #ffffff;
+      border: 1.5px solid #2383E2;
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem 1.2rem;
+      max-width: 320px;
+    }
+    .prayer-text { color: #1A1A1A; }
+
+    /* MODO OSCURO — camuflaje con el gris de Notion */
+    @media (prefers-color-scheme: dark) {
+      html, body { background: #191919; }
+      .widget {
+        background: #191919;
+        border-color: #191919;
+      }
+      .prayer-text { color: #ffffff; }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 0.6rem;
+    }
+    .label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #2383E2;
+    }
+    .prayer-text {
+      font-size: 0.88rem;
+      font-weight: 400;
+      line-height: 1.65;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="widget">
+  <div class="header">
+    <span aria-hidden="true">🙏</span>
+    <span class="label">Motivo de Oración</span>
+  </div>
+  <p class="prayer-text" id="prayerText"></p>
+</div>
+<script>
+  const PRAYERS = [
+    'Orar por la unidad y protección de mi familia, que Dios guíe cada hogar.',
+    'Por la salvación de familiares que aún no conocen a Cristo.',
+    'Por la salud física y emocional de cada miembro de la congregación.',
+    'Por sanidad completa de quienes están enfermos en el cuerpo de Cristo.',
+    'Por el crecimiento del ministerio y que cada vida sea transformada.',
+    'Por sabiduría y unidad en el equipo de liderazgo.',
+    'Por favor y provisión en el trabajo para el avance del ministerio.',
+    'Por nuevas puertas de oportunidad que solo Dios puede abrir.',
+    'Por una mayor intimidad con Dios en la oración y Su Palabra.',
+    'Por fortaleza y renovación espiritual en cada temporada de prueba.',
+    'Por los jóvenes de la congregación, que encuentren su propósito en Cristo.',
+    'Por los que atraviesan duelo, que el Espíritu Santo los consuele.',
+  ];
+
+  function getDailyPrayer() {
+    const now = new Date(), start = new Date(now.getFullYear(), 0, 0);
+    return PRAYERS[Math.floor((now - start) / 86400000) % PRAYERS.length];
+  }
+
+  document.getElementById('prayerText').textContent = getDailyPrayer();
+</script>
+</body>
+</html>
